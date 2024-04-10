@@ -1,0 +1,43 @@
+<%- include("partials/header.ejs") %>
+
+    <body>
+        <div class="app_container">
+            <h1>MQTT Web Subscriber </br> And Publisher
+                🛰️✨
+            </h1>
+
+            <h3>Log to the MQTT</h3>
+            <form class="mqtt-connector">
+                <input id="host" type="text" name="host" placeholder="Broker Address" value="">
+                <input id="port" type="text" name="port" placeholder="Port" value="8884"><br />
+                <input id="username" type="text" name="username" placeholder="Username" value="">
+                <input id="password" type="password" name="password" placeholder="Password" value="">
+
+                <input id="connect" class="button" type="submit" value="Connect" />
+                <input id="disconnect" class="button" type="button" value="Disconnect">
+            </form>
+            <h5>Status: <span id="status">Disconnected</span></h5>
+
+            <hr>
+
+            <h3>Subscription topic</h3>
+            <form class="mqtt-connector">
+                <input id="topic-subscriber" type="text" name="topic-subscriber" placeholder="Subscribed Topic"
+                    value="">
+
+                <input id="subscribe" class="button" type="submit" value="Subscribe" />
+
+                <span id="emoji-decor">👩‍🔬📡🪐</span>
+            </form>
+
+            <h3>Publish Topic and Message:</h3>
+            <form class="mqtt-connector">
+                <input id="topic-publisher" type="text" name="topic-publisher" placeholder="Topic">
+                <input id="message-publisher" type="text" name="message-publisher" placeholder="Message">
+
+                <input id="publish" type="submit" class="button" value="Publish">
+            </form>
+
+            <div id="message-mqtt">
+            </div>
+            <%- include("partials/footer.ejs") %>
