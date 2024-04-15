@@ -99,8 +99,13 @@ hr {
 
 #status {
   color: #e20a40;
+  font-size: bold;
 }
 
+#status_connected {
+  color: green;
+  font-size: bold;
+}
 .app_container {
   margin: 0 auto;
   background-color: white;

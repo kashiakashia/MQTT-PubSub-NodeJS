@@ -8,10 +8,10 @@
 
             <h3>Log to the MQTT</h3>
             <form action="/submit" method="POST" class="mqtt-connector">
-                <input id="host" type="text" name="host" placeholder="Broker Address" value="">
+                <input id="host" type="text" name="host" placeholder="Broker Address" value="" /required>
                 <input id="port" type="text" name="port" placeholder="Port" value="8884"><br />
-                <input id="username" type="text" name="username" placeholder="Username" value="">
-                <input id="password" type="password" name="password" placeholder="Password" value="">
+                <input id="username" type="text" name="username" placeholder="Username" value="" /required>
+                <input id="password" type="password" name="password" placeholder="Password" value="" /required>
 
                 <input id="connect" class="button" type="submit" value="Connect" />
             </form>
@@ -20,11 +20,11 @@
             </form> -->
 
             <% if ( locals.connectionStatus) { %>
-                <h5>Status: <span id="status">
+                <h4>Status: <span id="status_connected">
                         <%= connectionStatus %>
-                    </span></h5>
+                    </span></h4>
                 <% } else { %>
-                    <h5>Status: <span id="status">Disconnected</span></h5>
+                    <h4>Status: <span id="status">Disconnected</span></h4>
                     <% }%>
 
                         <hr>

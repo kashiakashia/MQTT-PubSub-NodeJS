@@ -10,7 +10,6 @@ import fs from "fs-extra";
 
 const app = express();
 const port = 3000;
-let status;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +20,6 @@ function connectToBroker(req, res, next) {
   const userID = req.body["username"];
   const passwordID = req.body["password"];
 
-  console.log("jestem tu");
   var options = {
     host: host,
     schema: "wss://",
@@ -37,7 +35,9 @@ function connectToBroker(req, res, next) {
 
   client.on("connect", function () {
     console.log("Client connected");
-    next();
+    const status = "Connected";
+    res.locals.status = status;
+    req.res.render("index.ejs", { connectionStatus: res.locals.status });
   });
 
   next();
@@ -49,9 +49,7 @@ app.get("/", (req, res) => {
 
 app.use(connectToBroker);
 
-app.post("/submit", (req, res) => {
-  res.render("index.ejs", { connectionStatus: status });
-});
+app.post("/submit", (req, res) => {});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
