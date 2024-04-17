@@ -7,17 +7,28 @@
             </h1>
 
             <h3>Log to the MQTT</h3>
-            <form action="/submit" method="POST" class="mqtt-connector">
-                <input id="host" type="text" name="host" placeholder="Broker Address" value="" /required>
-                <input id="port" type="text" name="port" placeholder="Port" value="8884"><br />
-                <input id="username" type="text" name="username" placeholder="Username" value="" /required>
-                <input id="password" type="password" name="password" placeholder="Password" value="" /required>
+            <div class="main-form">
+                <div>
+                    <form action="/connect" method="POST" class="mqtt-connector">
+                        <input id="host" type="text" name="host" placeholder="Broker Address" value="" /required>
+                        <input id="port" type="text" name="port" placeholder="Port" value="8884"><br />
+                        <input id="username" type="text" name="username" placeholder="Username" value="" /required>
+                        <input id="password" type="password" name="password" placeholder="Password" value="" /required>
 
-                <input id="connect" class="button" type="submit" value="Connect" />
-            </form>
-            <!-- <form action="/diconnect" method="POST" class="mqtt-connector">
-                <input id="disconnect" class="button" type="button" value="Disconnect">
-            </form> -->
+                        <input id="connect" class="button" type="submit" value="Connect" name="brokerConnection" />
+                    </form>
+                </div>
+                <div class="mqtt-disconnect">
+                    <form action="/disconnect" method="POST">
+                        <!-- Disconnect form fields -->
+                        <input id="disconnect" class="button" type="submit" value="Disconnect"
+                            name="brokerConnection" />
+                    </form>
+                </div>
+            </div>
+
+
+
 
             <% if ( locals.connectionStatus) { %>
                 <h4>Status: <span id="status_connected">

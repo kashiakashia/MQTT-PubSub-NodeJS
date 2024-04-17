@@ -10,6 +10,7 @@ import fs from "fs-extra";
 
 const app = express();
 const port = 3000;
+let status;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,21 +36,23 @@ function connectToBroker(req, res, next) {
 
   client.on("connect", function () {
     console.log("Client connected");
-    const status = "Connected";
-    res.locals.status = status;
-    req.res.render("index.ejs", { connectionStatus: res.locals.status });
+    status = "Connected";
+    res.redirect("/");
   });
+}
 
-  next();
+function disconnectFromBroker(req, res, next) {
+  res.redirect("/");
 }
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render("index.ejs", { connectionStatus: status });
 });
 
-app.use(connectToBroker);
+app.post("/connect", connectToBroker);
 
-app.post("/submit", (req, res) => {});
+// Handle disconnect request
+app.post("/disconnect", disconnectFromBroker);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

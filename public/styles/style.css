@@ -61,16 +61,16 @@ hr {
 }
 
 #host {
-  width: 48%;
+  width: 68%;
 }
 
 #port {
-  width: 7%;
+  width: 17%;
 }
 
 #username,
 #password {
-  width: 15%;
+  width: 31%;
 }
 
 #message-mqtt {
@@ -134,4 +134,14 @@ hr {
 
 .button:hover {
   background-color: #685e80;
+}
+
+.mqtt-disconnect {
+  padding-top: 50px;
+}
+
+.main-form {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 0;
 }
