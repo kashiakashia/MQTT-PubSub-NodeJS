@@ -11,6 +11,7 @@ import fs from "fs-extra";
 const app = express();
 const port = 3000;
 let status;
+let client = null;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,7 +33,7 @@ function connectToBroker(req, res, next) {
     password: passwordID,
   };
 
-  const client = mqtt.connect(host, options);
+  client = mqtt.connect(host, options);
 
   client.on("connect", function () {
     console.log("Client connected");
@@ -42,6 +43,13 @@ function connectToBroker(req, res, next) {
 }
 
 function disconnectFromBroker(req, res, next) {
+  console.log("diconnecting...");
+  setTimeout(function () {
+    client.end();
+    console.log(
+      "Client with ID: " + client.options.clientId + ", is disconnected"
+    );
+  }, 100); // stop after 0.001sec
   res.redirect("/");
 }
 
@@ -52,7 +60,9 @@ app.get("/", (req, res) => {
 app.post("/connect", connectToBroker);
 
 // Handle disconnect request
-app.post("/disconnect", disconnectFromBroker);
+app.post("/disconnect", (req, res) => {
+  disconnectFromBroker(req, res); // Call the disconnect function
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
