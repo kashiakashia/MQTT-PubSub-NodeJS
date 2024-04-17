@@ -41,7 +41,7 @@
                         <hr>
 
                         <h3>Subscription topic</h3>
-                        <form class="mqtt-connector">
+                        <form action="/subscribe" method="POST" class="mqtt-connector">
                             <input id="topic-subscriber" type="text" name="topic-subscriber"
                                 placeholder="Subscribed Topic" value="">
 
@@ -51,7 +51,7 @@
                         </form>
 
                         <h3>Publish Topic and Message:</h3>
-                        <form class="mqtt-connector">
+                        <form action="/publish" method="POST" class="mqtt-connector">
                             <input id="topic-publisher" type="text" name="topic-publisher" placeholder="Topic">
                             <input id="message-publisher" type="text" name="message-publisher" placeholder="Message">
 

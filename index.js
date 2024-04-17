@@ -64,6 +64,10 @@ app.post("/disconnect", (req, res) => {
   disconnectFromBroker(req, res); // Call the disconnect function
 });
 
+app.post("/subscribe", (req, res) => {});
+
+app.post("/publish", (req, res) => {});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
