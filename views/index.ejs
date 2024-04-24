@@ -27,9 +27,6 @@
                 </div>
             </div>
 
-
-
-
             <% if ( locals.connectionStatus) { %>
                 <h4>Status: <span id="status_connected">
                         <%= connectionStatus %>
@@ -59,5 +56,8 @@
                         </form>
 
                         <div id="message-mqtt">
+                            <% if ( locals.publisherData) { %>
+                                <%= publisherData %>
+                                    <% } %>
                         </div>
                         <%- include("partials/footer.ejs") %>

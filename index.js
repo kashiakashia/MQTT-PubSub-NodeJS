@@ -66,7 +66,20 @@ app.post("/disconnect", (req, res) => {
 
 app.post("/subscribe", (req, res) => {});
 
-app.post("/publish", (req, res) => {});
+app.post("/publish", (req, res) => {
+  const topic_publisher = req.body["topic-publisher"];
+  const message_publisher = req.body["message-publisher"];
+
+  client.publish(topic_publisher, message_publisher);
+
+  const publisher =
+    "Published to topic " +
+    topic_publisher +
+    " ,the message: " +
+    message_publisher;
+
+  res.render("index.ejs", { publisherData: publisher });
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
