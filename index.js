@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import mqtt from "mqtt";
 import fs from "fs-extra";
+import session from "express-session";
 
 //import { dirname } from "path";
 //import { fileURLToPath } from "url";
@@ -10,11 +11,18 @@ import fs from "fs-extra";
 
 const app = express();
 const port = 3000;
-let status;
 let client = null;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    secret: "7iowlq3289@#8#*(!", // random string
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 function connectToBroker(req, res, next) {
   const host = "wss://" + req.body["host"];
@@ -37,7 +45,7 @@ function connectToBroker(req, res, next) {
 
   client.on("connect", function () {
     console.log("Client connected");
-    status = "Connected";
+    req.session.connectionStatus = "Connected"; // Store connection status in session
     res.redirect("/");
   });
 }
@@ -54,7 +62,9 @@ function disconnectFromBroker(req, res, next) {
 }
 
 app.get("/", (req, res) => {
-  res.render("index.ejs", { connectionStatus: status });
+  res.render("index.ejs", {
+    connectionStatus: req.session.connectionStatus || "Disconnected",
+  });
 });
 
 app.post("/connect", connectToBroker);
@@ -70,6 +80,9 @@ app.post("/publish", (req, res) => {
   const topic_publisher = req.body["topic-publisher"];
   const message_publisher = req.body["message-publisher"];
 
+  // Retrieve connectionStatus from session
+  const connectionStatus = req.session.connectionStatus || "Disconnected";
+
   client.publish(topic_publisher, message_publisher);
 
   const publisher =
@@ -78,7 +91,7 @@ app.post("/publish", (req, res) => {
     " ,the message: " +
     message_publisher;
 
-  res.render("index.ejs", { publisherData: publisher });
+  res.render("index.ejs", { publisherData: publisher, connectionStatus });
 });
 
 app.listen(port, () => {
