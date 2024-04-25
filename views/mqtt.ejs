@@ -1,0 +1,56 @@
+<%- include("partials/header.ejs") %>
+
+    <body>
+        <div class="app_container">
+            <h1>MQTT Web Subscriber </br> And Publisher
+                🛰️✨
+            </h1>
+            <div class="mqtt-disconnect">
+                <form action="/disconnect" method="POST">
+                    <!-- Disconnect form fields -->
+                    <input id="disconnect" class="button" type="submit" value="Disconnect" name="brokerConnection" />
+                </form>
+            </div>
+            <% if ( locals.connectionStatus) { %>
+                <h4>Status: <span id="status_connected">
+                        <%= connectionStatus %>
+                    </span></h4>
+                <% } else { %>
+                    <h4>Status: <span id="status">Disconnected</span></h4>
+                    <% }%>
+
+                        <hr>
+
+                        <h3>Subscription topic</h3>
+                        <form action="/subscribe" method="POST" class="mqtt-connector">
+                            <input id="topic-subscriber" type="text" name="topic-subscriber"
+                                placeholder="Subscribed Topic" value="">
+
+                            <input id="subscribe" class="button" type="submit" value="Subscribe" />
+
+                            <span id="emoji-decor">👩‍🔬📡🪐</span>
+                        </form>
+
+                        <h3>Publish Topic and Message:</h3>
+                        <form id="publishForm" action="/publish" method="POST" class="mqtt-connector">
+                            <input id="topic-publisher" type="text" name="topic-publisher" placeholder="Topic">
+                            <input id="message-publisher" type="text" name="message-publisher" placeholder="Message">
+
+                            <input id="publish" type="submit" class="button" value="Publish">
+                        </form>
+
+                        <div id="message-mqtt">
+                            <% if ( locals.publisherData) { %>
+                                <%= publisherData %>
+                                    <% } %>
+                        </div>
+                        <%- include("partials/footer.ejs") %>
+                            <script>
+                                // Scroll to the bottom of the page on reload
+                                window.onload = function () {
+                                    window.scrollTo(0, document.body.scrollHeight);
+                                };
+                            </script>
+    </body>
+
+    </html>

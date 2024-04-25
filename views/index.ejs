@@ -18,13 +18,6 @@
                         <input id="connect" class="button" type="submit" value="Connect" name="brokerConnection" />
                     </form>
                 </div>
-                <div class="mqtt-disconnect">
-                    <form action="/disconnect" method="POST">
-                        <!-- Disconnect form fields -->
-                        <input id="disconnect" class="button" type="submit" value="Disconnect"
-                            name="brokerConnection" />
-                    </form>
-                </div>
             </div>
 
             <% if ( locals.connectionStatus) { %>
@@ -36,28 +29,6 @@
                     <% }%>
 
                         <hr>
+    </body>
 
-                        <h3>Subscription topic</h3>
-                        <form action="/subscribe" method="POST" class="mqtt-connector">
-                            <input id="topic-subscriber" type="text" name="topic-subscriber"
-                                placeholder="Subscribed Topic" value="">
-
-                            <input id="subscribe" class="button" type="submit" value="Subscribe" />
-
-                            <span id="emoji-decor">👩‍🔬📡🪐</span>
-                        </form>
-
-                        <h3>Publish Topic and Message:</h3>
-                        <form action="/publish" method="POST" class="mqtt-connector">
-                            <input id="topic-publisher" type="text" name="topic-publisher" placeholder="Topic">
-                            <input id="message-publisher" type="text" name="message-publisher" placeholder="Message">
-
-                            <input id="publish" type="submit" class="button" value="Publish">
-                        </form>
-
-                        <div id="message-mqtt">
-                            <% if ( locals.publisherData) { %>
-                                <%= publisherData %>
-                                    <% } %>
-                        </div>
-                        <%- include("partials/footer.ejs") %>
+    </html>

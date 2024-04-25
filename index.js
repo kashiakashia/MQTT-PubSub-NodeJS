@@ -46,7 +46,9 @@ function connectToBroker(req, res, next) {
   client.on("connect", function () {
     console.log("Client connected");
     req.session.connectionStatus = "Connected"; // Store connection status in session
-    res.redirect("/");
+    res.render("mqtt.ejs", {
+      connectionStatus: req.session.connectionStatus || "Disconnected",
+    });
   });
 }
 
@@ -91,7 +93,14 @@ app.post("/publish", (req, res) => {
     " ,the message: " +
     message_publisher;
 
-  res.render("index.ejs", { publisherData: publisher, connectionStatus });
+  // Get the current scroll position
+  //const scrollPosition = req.body.scrollPosition;
+
+  res.render("index.ejs", {
+    publisherData: publisher,
+    connectionStatus,
+    /*scrollPosition,*/
+  });
 });
 
 app.listen(port, () => {
